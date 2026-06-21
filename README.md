@@ -2,19 +2,23 @@
 
 The marketing website for **Predio** (https://www.predioapp.com).
 
-Bilingual (English / Spanish) single-page site built as a self-contained `index.html` — no build step, no dependencies. Deploys as a static site.
+Bilingual (English / Spanish) multi-page static site — no build step, no dependencies. Deploys as static files on Vercel.
 
-## Structure
-- `index.html` — the entire site (HTML + CSS + JS inline)
+## Pages
+- `index.html` — Home (overview, features highlights, how-it-works, who-it's-for)
+- `features.html` — Full feature breakdown
+- `pricing.html` — Plans, add-ons and pricing FAQ
+- `property-management.html` — For property management companies (US/SEO)
+- `hoas.html` — For HOAs & residential communities
+- `faq.html` — Frequently asked questions (with FAQ schema)
 
-## Deploy (Vercel)
-1. Push this repo to GitHub.
-2. In Vercel, **Add New → Project → Import** this GitHub repo.
-3. Framework preset: **Other** (static). No build command needed.
-4. Deploy.
-
-## Connect the domain (predioapp.com)
-After deploying, in the Vercel project go to **Settings → Domains**, add `predioapp.com` and `www.predioapp.com`, then add the DNS records Vercel shows you at your registrar (Squarespace).
+## Shared
+- `styles.css` — all styling
+- `app.js` — language toggle (EN/ES), FAQ accordion, mobile nav
+- `sitemap.xml`, `robots.txt` — SEO
 
 ## Language
-The site defaults to English and auto-switches to Spanish for Spanish-language browsers. Users can toggle EN/ES in the top-right. English copy targets the U.S. market; Spanish targets Latin America.
+Each page ships English content in the HTML (crawlable) plus a Spanish dictionary in an inline `window.ES` object. `app.js` swaps text on toggle and remembers the choice. Defaults to English; auto-switches to Spanish for Spanish-language browsers. English copy targets the U.S. market; Spanish targets Latin America.
+
+## Deploy
+Connected to GitHub → Vercel. Pushing to `main` auto-deploys to https://www.predioapp.com.
