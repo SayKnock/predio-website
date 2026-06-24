@@ -215,6 +215,15 @@ footer{background:var(--teal);color:#cfe3e3;padding:60px 0 28px}
   .hero{padding:54px 0 44px}
   .page-hero{padding:48px 0 44px}
   footer{padding:44px 0 24px}
+  .foot-brand .logo{display:none}   /* logo already lives in the header — hide the footer copy on mobile */
+
+  /* centered & consistent layout on phones — hero, section headers and cards center;
+     checklists and long paragraphs stay left-aligned for readability */
+  .hero h1,.hero .sub,.page-hero{text-align:center}
+  .hero-cta,.hero-note,.badges{justify-content:center}
+  .vp-card,.feat,.aud{text-align:center}
+  .vp-ic,.feat .fic{margin-inline:auto}
+  .frow h2,.split h2{text-align:center}
 
   /* MOBILE NAV — clean drawer: bar shows only logo + hamburger */
   .nav-inner{flex-wrap:wrap;height:auto;min-height:70px;align-items:center;justify-content:center;position:relative}
