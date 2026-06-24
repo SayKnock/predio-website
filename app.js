@@ -6,6 +6,17 @@
   var EN = {};
   nodes.forEach(function (n) { EN[n.getAttribute('data-i18n')] = n.innerHTML; });
 
+  // Product screenshots are bilingual: a Spanish twin of every shot lives in
+  // assets/screens/es/ with the same filename. Swap the <img> src with the language.
+  var shots = [];
+  document.querySelectorAll('img').forEach(function (img) {
+    var s = img.getAttribute('src') || '';
+    if (s.indexOf('assets/screens/') > -1 && s.indexOf('assets/screens/es/') === -1) {
+      shots.push([img, s, s.replace('assets/screens/', 'assets/screens/es/')]);
+    }
+  });
+  function setShots(lang) { shots.forEach(function (o) { o[0].setAttribute('src', lang === 'es' ? o[2] : o[1]); }); }
+
   function setLang(lang) {
     document.documentElement.lang = lang;
     nodes.forEach(function (n) {
@@ -25,6 +36,7 @@
       tog.querySelectorAll('span').forEach(function (s) { s.classList.toggle('active', s.dataset.l === lang); });
     }
     try { localStorage.setItem('predio_lang', lang); } catch (e) {}
+    setShots(lang);
     widont();
   }
 
