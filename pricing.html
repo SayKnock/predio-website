@@ -70,7 +70,7 @@
         <div class="price-slot"><span class="amt" data-i18n="tier3_price">$2.25</span><span class="per" data-i18n="tier3_per">/ unit / month</span></div>
         <div class="tier-min" data-i18n="tier3_min">$59 / month minimum</div>
         <div class="tier-seats" data-i18n="tier3_seats">15 staff seats · unlimited residents</div>
-        <ul class="tier-feats"><li data-i18n="tier3_f1">Everything in Growth, plus:</li><li data-i18n="tier3_f2">Reports &amp; exports</li><li data-i18n="tier3_f3">Document vault</li><li data-i18n="tier3_f4">Commercial &amp; mixed-use tools</li><li data-i18n="tier3_f5">Priority support</li></ul>
+        <ul class="tier-feats"><li data-i18n="tier3_f1">Everything in Growth, plus:</li><li data-i18n="tier3_f2">Reports &amp; exports · statement / good-standing certificate, aging &amp; delinquency</li><li data-i18n="tier3_f3">Document vault</li><li data-i18n="tier3_f4">Commercial &amp; mixed-use tools</li><li data-i18n="tier3_f5">Priority support</li></ul>
         <a href="https://calendar.app.google/EFKAiQVZ5A5x9jyq7" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="tier_cta">Get started</a>
       </div>
     </div>
@@ -99,7 +99,13 @@
         <span class="tag" data-i18n="ao2_tag">AI</span>
         <h3 data-i18n="ao2_t">AI Agent</h3>
         <div class="ap" data-i18n="ao2_p">$29/mo · 1,500 messages included</div>
-        <p data-i18n="ao2_d">A bilingual assistant inside resident chat, 24/7. It answers questions, opens maintenance tickets, and explains charges from real data — with a person able to take over anytime. $15 per additional 1,500 messages.</p>
+        <p data-i18n="ao2_d">A bilingual assistant inside resident chat, 24/7. It answers questions, opens maintenance tickets, and explains charges from real data — with a person able to take over anytime. Turn on <strong>Collections mode</strong> and it reminds residents about overdue payments on the schedule you set. $15 per additional 1,500 messages.</p>
+      </div>
+      <div class="addon">
+        <span class="tag" data-i18n="ao3_tag">Security</span>
+        <h3 data-i18n="ao3_t">Guard &amp; Security</h3>
+        <div class="ap" data-i18n="ao3_p">$15/mo per building · unlimited guards</div>
+        <p data-i18n="ao3_d">Staff-facing security for the gate. Guards check visitors in by scanning their QR pass with the app's camera, log packages, walk geolocated rounds, and file incidents — all from the Building App, on a tamper-evident log. Software-only; unlimited guard logins.</p>
       </div>
     </div>
   </div>
@@ -130,12 +136,13 @@
       <div class="foot-col"><h4 data-i18n="foot_solutions">Solutions</h4><a href="/property-management.html" data-i18n="nav_pm">For Companies</a><a href="/owners.html" data-i18n="nav_owners">For Owners</a><a href="/hoas.html" data-i18n="nav_hoa">For HOAs</a></div>
       <div class="foot-col"><h4 data-i18n="foot_company">Company</h4><a href="mailto:info@predioapp.com">info@predioapp.com</a><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></div>
     </div>
-    <div class="foot-bottom"><span>© <span id="year"></span> Predio. <span data-i18n="rights">All rights reserved.</span></span><span data-i18n="foot_made">Built for the U.S. &amp; Latin America 🌎</span></div>
+    <div class="foot-bottom"><span>© <span id="year"></span> Predio. <span data-i18n="rights">All rights reserved.</span></span><span class="foot-legal"><a href="/terms.html" data-i18n="foot_terms">Terms</a> · <a href="/privacy.html" data-i18n="foot_privacy">Privacy</a></span><span data-i18n="foot_made">Built for the U.S. &amp; Latin America 🌎</span></div>
   </div>
 </footer>
 
 <script>
 window.ES = {
+  foot_terms:"Términos de Servicio", foot_privacy:"Política de Privacidad",
   nav_features:"Funciones", nav_pricing:"Precios", nav_pm:"Para Empresas", nav_owners:"Para Propietarios", nav_hoa:"Para Condominios", nav_faq:"Preguntas", nav_cta:"Solicita una demo",
   ph_kicker:"Precios", ph_h1:"Precios simples y transparentes.", ph_sub:"Paga por unidad, mes a mes. Sin contratos, sin costos de instalación — y con capacitación y soporte gratis, siempre.",
   plan_note:"Elige por las funciones que necesitas — no por el tamaño. Todos los planes soportan propiedades y unidades ilimitadas, facturadas por unidad. ¿Administras un portafolio grande? Premium y Enterprise (con precios por volumen) están cuando los quieras.",
@@ -144,13 +151,14 @@ window.ES = {
   tier2_name:"Growth", tier2_for:"Para propiedades y portafolios en crecimiento", tier2_price:"$1.75", tier2_per:"/ unidad / mes", tier2_min:"Mínimo $39 / mes", tier2_seats:"6 cuentas de personal · residentes ilimitados",
   tier2_f1:"Todo lo de Starter, más:", tier2_f2:"Reportes financieros", tier2_f3:"Reserva de áreas comunes", tier2_f4:"Tickets de mantenimiento", tier2_f5:"Panel multipropiedad", tier2_f6:"Control de acceso QR",
   tier3_name:"Premium", tier3_for:"Para propiedades grandes, comerciales y mixtas", tier3_price:"$2.25", tier3_per:"/ unidad / mes", tier3_min:"Mínimo $59 / mes", tier3_seats:"15 cuentas de personal · residentes ilimitados",
-  tier3_f1:"Todo lo de Growth, más:", tier3_f2:"Reportes y exportaciones", tier3_f3:"Bóveda de documentos", tier3_f4:"Herramientas comerciales y de uso mixto", tier3_f5:"Soporte prioritario",
+  tier3_f1:"Todo lo de Growth, más:", tier3_f2:"Reportes y exportaciones · estado de cuenta / paz y salvo, cartera y morosidad", tier3_f3:"Bóveda de documentos", tier3_f4:"Herramientas comerciales y de uso mixto", tier3_f5:"Soporte prioritario",
   popular:"Más popular", tier_cta:"Comenzar",
   ao_h2:"Complementos opcionales", ao_sub:"Agrega cualquiera a tu plan cuando lo necesites.",
   ao1_tag:"Pagos", ao1_t:"Predio Pagos", ao1_p:"$9/mes + $2 por pago bancario",
   ao1_d:"Cobra renta y expensas en la app. Los residentes pagan por transferencia o tarjeta, con pago automático y recibos al instante. Donde no hay pago en línea, el residente reporta su pago bancario con una foto del comprobante y el edificio lo confirma. Comisión de tarjeta 3.5% + $0.35, la paga el residente.",
   ao2_tag:"IA", ao2_t:"Agente IA", ao2_p:"$29/mes · 1,500 mensajes incluidos",
-  ao2_d:"Un asistente bilingüe dentro del chat con residentes, 24/7. Responde preguntas, abre tickets de mantenimiento y explica cargos con datos reales — y una persona puede tomar el control cuando quiera. $15 por cada 1,500 mensajes adicionales.",
+  ao2_d:"Un asistente bilingüe dentro del chat con residentes, 24/7. Responde preguntas, abre tickets de mantenimiento y explica cargos con datos reales — y una persona puede tomar el control cuando quiera. Activa el <strong>modo Cobranza</strong> y recuerda a los residentes los pagos vencidos según el calendario que definas. $15 por cada 1,500 mensajes adicionales.",
+  ao3_tag:"Seguridad", ao3_t:"Guardia y Seguridad", ao3_p:"$15/mes por edificio · guardias ilimitados", ao3_d:"Seguridad para la portería. Los guardias registran visitas escaneando su pase QR con la cámara de la app, registran paquetes, hacen rondas geolocalizadas y reportan incidentes — todo desde la App del Edificio, en una bitácora a prueba de manipulaciones. Solo software; cuentas de guardia ilimitadas.",
   ent_name:"Enterprise", ent_desc:"¿Administras cientos de unidades o un gran portafolio? Creamos un plan a la medida de tus necesidades — agenda una demo y te mostramos.", ent_cta:"Agenda una demo",
   price_foot:"Precios por unidad, facturados mensualmente, con un mínimo por plan. Cada plan incluye cuentas de personal (2 / 6 / 15) que cubren todos los roles — propietario, administradores, oficina y mantenimiento — y cualquier cuenta de personal extra cuesta $3/mes; las cuentas de residentes son siempre ilimitadas y gratis. El cobro de pagos en línea es un complemento opcional: $9/mes, más una cuota fija de $2 por pago bancario (la paga el edificio; gratis para el residente); los pagos con tarjeta tienen una comisión de 3.5% + $0.35 que paga el residente. Disponible en cualquier plan. Un complemento opcional de Agente IA ($29/mes, 1,500 mensajes de residentes incluidos, luego $15 por cada 1,500 adicionales) responde a los residentes 24/7, abre tickets de mantenimiento y explica cargos. Sin contratos — cancela cuando quieras.",
   pf_kicker:"Preguntas de precios", pf_h2:"Lo que debes saber.",
