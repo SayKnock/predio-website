@@ -30,11 +30,10 @@
       if (d) d.setAttribute('content', META[lang].desc);
       document.title = META[lang].title;
     }
-    var tog = document.getElementById('langToggle');
-    if (tog) {
+    document.querySelectorAll('.lang').forEach(function (tog) {
       tog.classList.toggle('es', lang === 'es');
       tog.querySelectorAll('span').forEach(function (s) { s.classList.toggle('active', s.dataset.l === lang); });
-    }
+    });
     try { localStorage.setItem('predio_lang', lang); } catch (e) {}
     setShots(lang);
     widont();
@@ -101,11 +100,10 @@
   var rt;
   window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(widont, 150); });
 
-  var tog = document.getElementById('langToggle');
-  if (tog) {
+  document.querySelectorAll('.lang').forEach(function (tog) {
     tog.addEventListener('click', function () { setLang(document.documentElement.lang === 'es' ? 'en' : 'es'); });
     tog.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tog.click(); } });
-  }
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(function (qb) {
