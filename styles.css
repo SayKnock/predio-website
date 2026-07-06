@@ -252,6 +252,11 @@ footer{background:var(--teal);color:#cfe3e3;padding:60px 0 28px}
 @media(max-width:900px){
   .hero-grid,.split,.foot-grid,.frow,.frow.flip .ftxt{grid-template-columns:1fr;order:0}
   .vp-grid,.feat-grid,.steps,.diff-grid,.aud-grid,.price-grid{grid-template-columns:1fr 1fr}
+  /* a 2-col grid with an ODD card count would leave an orphan card next to a
+     hole (e.g. the Premium tier) — let the last card span the full row instead */
+  .vp-grid>:last-child:nth-child(odd),.feat-grid>:last-child:nth-child(odd),
+  .steps>:last-child:nth-child(odd),.diff-grid>:last-child:nth-child(odd),
+  .aud-grid>:last-child:nth-child(odd),.price-grid>:last-child:nth-child(odd){grid-column:1/-1}
   .hero h1{font-size:38px}.page-hero h1{font-size:32px}.section-head h2{font-size:28px}
 
   /* tighter vertical rhythm on phones */
