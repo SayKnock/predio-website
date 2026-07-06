@@ -11,6 +11,12 @@
 <meta property="og:title" content="Software for Property Management Companies — Predio" />
 <meta property="og:description" content="Run your entire portfolio, automate payments, and give owners transparent reporting — bilingual, no contracts." />
 <meta property="og:url" content="https://www.predioapp.com/property-management.html" />
+<meta property="og:image" content="https://www.predioapp.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Predio — property management for every property, bilingual EN/ES" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.predioapp.com/og-image.png" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect x='10' y='10' width='30' height='64' rx='7' fill='%230f4c5c'/%3E%3Crect x='45' y='10' width='65' height='30' rx='7' fill='%231b6b7a'/%3E%3Crect x='45' y='45' width='29' height='29' rx='6' fill='%23ffd166'/%3E%3Crect x='79' y='45' width='31' height='29' rx='6' fill='%231c6f80'/%3E%3Crect x='10' y='79' width='64' height='31' rx='7' fill='%23175f73'/%3E%3Crect x='79' y='79' width='31' height='31' rx='7' fill='%232a9d8f'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -20,16 +26,21 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="/" aria-label="Predio home"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="10" width="30" height="64" rx="7" fill="#0f4c5c"/><rect x="45" y="10" width="65" height="30" rx="7" fill="#1b6b7a"/><rect x="45" y="45" width="29" height="29" rx="6" fill="#ffd166"/><rect x="79" y="45" width="31" height="29" rx="6" fill="#1c6f80"/><rect x="10" y="79" width="64" height="31" rx="7" fill="#175f73"/><rect x="79" y="79" width="31" height="31" rx="7" fill="#2a9d8f"/></svg>Predio</a>
-    <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="/features.html" data-i18n="nav_features">Features</a>
-      <a href="/pricing.html" data-i18n="nav_pricing">Pricing</a>
-      <a href="/property-management.html" class="active" data-i18n="nav_pm">For Companies</a>
-      <a href="/owners.html" data-i18n="nav_owners">For Owners</a>
-      <a href="/hoas.html" data-i18n="nav_hoa">For HOAs</a>
-      <a href="/faq.html" data-i18n="nav_faq">FAQ</a>
-    </nav>
-    <div class="nav-right"><div class="lang" id="langToggle" role="button" tabindex="0" aria-label="Switch language"><div class="slider"></div><span class="active" data-l="en">EN</span><span data-l="es">ES</span></div><a href="mailto:info@predioapp.com?subject=Predio%20waitlist&body=Please%20add%20me%20to%20the%20Predio%20waitlist." class="btn btn-primary" data-i18n="nav_cta">Join the waitlist</a><button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button></div>
+    <a class="logo" href="/" aria-label="Predio home"><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="10" width="30" height="64" rx="7" fill="#0f4c5c"/><rect x="45" y="10" width="65" height="30" rx="7" fill="#1b6b7a"/><rect x="45" y="45" width="29" height="29" rx="6" fill="#ffd166"/><rect x="79" y="45" width="31" height="29" rx="6" fill="#1c6f80"/><rect x="10" y="79" width="64" height="31" rx="7" fill="#175f73"/><rect x="79" y="79" width="31" height="31" rx="7" fill="#2a9d8f"/></svg> Predio</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+    <div class="nav-drawer" id="navDrawer">
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="/features.html" data-i18n="nav_features">Features</a>
+        <a href="/pricing.html" data-i18n="nav_pricing">Pricing</a>
+        <a href="/property-management.html" class="active" data-i18n="nav_pm">For Companies</a>
+        <a href="/owners.html" data-i18n="nav_owners">For Owners</a>
+        <a href="/hoas.html" data-i18n="nav_hoa">For HOAs</a>
+        <a href="/faq.html" data-i18n="nav_faq">FAQ</a>
+        <a href="https://app.predioapp.com" class="signin" data-i18n="nav_signin">Sign in</a>
+      </nav>
+      <div class="lang" id="langToggle" role="button" tabindex="0" aria-label="Switch language"><div class="slider"></div><span class="active" data-l="en">EN</span><span data-l="es">ES</span></div>
+      <a href="mailto:info@predioapp.com?subject=Predio%20waitlist&body=Please%20add%20me%20to%20the%20Predio%20waitlist." class="btn btn-primary" data-i18n="nav_cta">Join the waitlist</a>
+    </div>
   </div>
 </header>
 
@@ -92,7 +103,7 @@
 <script>
 window.ES = {
   foot_terms:"Términos de Servicio", foot_privacy:"Política de Privacidad",
-  nav_features:"Funciones", nav_pricing:"Precios", nav_pm:"Para Empresas", nav_owners:"Para Propietarios", nav_hoa:"Para Condominios", nav_faq:"Preguntas", nav_cta:"Únete a la lista de espera",
+  nav_features:"Funciones", nav_pricing:"Precios", nav_pm:"Para Empresas", nav_owners:"Para Propietarios", nav_hoa:"Para Condominios", nav_faq:"Preguntas", nav_cta:"Únete a la lista de espera", nav_signin:"Iniciar sesión",
   ph_kicker:"Para empresas administradoras", ph_h1:"Administra todo tu portafolio desde una sola app.",
   ph_sub:"Predio le da a las empresas administradoras una plataforma moderna y bilingüe para cobrar pagos, mantener informados a los propietarios y gestionar cada propiedad y miembro del equipo — sin contratos largos ni sorpresas por unidad.",
   ph_cta:"Únete a la lista de espera",

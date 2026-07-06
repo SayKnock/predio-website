@@ -117,24 +117,31 @@
     });
   });
 
-  // mobile nav — toggle drawer on the header, swap hamburger <-> X
+  // nav drawer — minimal bar + hamburger at every width; swap hamburger <-> X
   var HAMBURGER = '☰', CLOSE = '✕';
   var mb = document.getElementById('menuBtn');
   var hdr = document.querySelector('header.nav');
   if (mb && hdr) {
     mb.setAttribute('aria-expanded', 'false');
-    mb.addEventListener('click', function () {
+    var closeNav = function () {
+      hdr.classList.remove('nav-open');
+      mb.textContent = HAMBURGER;
+      mb.setAttribute('aria-expanded', 'false');
+    };
+    mb.addEventListener('click', function (e) {
+      e.stopPropagation();
       var open = hdr.classList.toggle('nav-open');
       mb.textContent = open ? CLOSE : HAMBURGER;
       mb.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    // close the drawer when a nav link is tapped
+    // close when a nav link is tapped
     hdr.querySelectorAll('.nav-links a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        hdr.classList.remove('nav-open');
-        mb.textContent = HAMBURGER;
-        mb.setAttribute('aria-expanded', 'false');
-      });
+      a.addEventListener('click', closeNav);
+    });
+    // close on Escape, or when clicking/tapping outside the header
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+    document.addEventListener('click', function (e) {
+      if (hdr.classList.contains('nav-open') && !hdr.contains(e.target)) closeNav();
     });
   }
 
