@@ -144,18 +144,19 @@
   }
 
 
-  // ── THE ONE DIAL (Core §8): the pricing page reads the LIVE standard price ──
-  // plan_catalog's 'standard' row — edited in Predio HQ → Catalogs — is the one
-  // source of truth for the price; the app's onboarding and HQ read the same
-  // row. standard_pricing() is a public, read-only RPC built for this page (the
+  // ── THE ONE DIAL (Core §8/§9): the pricing page reads the LIVE prices ──────
+  // plan_catalog's 'standard' row + the addon_catalog rows — edited in Predio
+  // HQ → Catalogs — are the one source of truth for every price on this page;
+  // the app's onboarding, Settings, and HQ read the same rows.
+  // standard_pricing() is a public, read-only RPC built for this page (the
   // anon key is public by design — the same key every Predio client ships).
-  // PROGRESSIVE ENHANCEMENT: the hardcoded $1.50 / $25 in the HTML is the
-  // no-JS / fetch-failed fallback. This block only ever swaps numbers after a
-  // good response — it can never blank the page, spin, or render NaN. It also
-  // recomputes the FAQ worked examples (40 / 100 units) from the fetched rate,
-  // and patches the EN + ES dictionaries so the language toggle keeps the live
-  // price.
-  var PRICE_KEYS = ['one_price', 'one_min', 'price_foot', 'pa1'];
+  // PROGRESSIVE ENHANCEMENT: the hardcoded numbers in the HTML ($1.50 / $25 /
+  // $9 / $2 / 3.5% + $0.35 / $29 / 1,500 / $15) are the no-JS / fetch-failed
+  // fallback. This block only ever swaps numbers after a good response — it
+  // can never blank the page, spin, or render NaN. It also recomputes the FAQ
+  // worked examples (40 / 100 units) from the fetched rate, and patches the
+  // EN + ES dictionaries so the language toggle keeps the live prices.
+  var PRICE_KEYS = ['one_price', 'one_min', 'price_foot', 'pa1', 'ao1_p', 'ao1_d', 'ao2_p', 'ao2_d', 'pa5'];
   if (window.fetch && PRICE_KEYS.some(function (k) { return EN[k] != null; })) {
     var SB_URL = 'https://knewthjceydrqfaknczw.supabase.co';
     var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtuZXd0aGpjZXlkcnFmYWtuY3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0NDE3OTcsImV4cCI6MjA5ODAxNzc5N30.3ev95BbpBXB5iBRhgjQe110_q5LMLBOE36cvaqaPv50';
@@ -169,22 +170,57 @@
     }).then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
       if (tmr) clearTimeout(tmr);
       if (!p) return;
-      var unit = p.unit_cents, floor = p.floor_cents;
-      if (typeof unit !== 'number' || typeof floor !== 'number'
-          || !isFinite(unit) || !isFinite(floor) || unit <= 0 || floor <= 0) return;
-      if (unit === 150 && floor === 2500) return; // identical to the shipped fallback
+      // A bad/missing field falls back to its shipped value — a partial
+      // response can only ever produce the same text the HTML already shows.
+      var ok = function (n) { return typeof n === 'number' && isFinite(n) && n > 0; };
+      var pick = function (n, dflt) { return ok(n) ? n : dflt; };
+      var unit = pick(p.unit_cents, 150), floor = pick(p.floor_cents, 2500);
+      var byKey = {};
+      (Array.isArray(p.addons) ? p.addons : []).forEach(function (a) { if (a && a.key) byKey[a.key] = a; });
+      var pay = byKey.payments || {}, ai = byKey.ai_agent || {};
+      var payM = pick(pay.monthly_cents, 900), bank = pick(pay.bank_payment_fee_cents, 200);
+      var bps = pick(pay.card_fee_bps, 350), fixed = pick(pay.card_fee_fixed_cents, 35);
+      var aiM = pick(ai.monthly_cents, 2900), inc = pick(ai.included_messages, 1500);
+      var overM = pick(ai.overage_messages, 1500), over = pick(ai.overage_cents, 1500);
+      if (unit === 150 && floor === 2500 && payM === 900 && bank === 200 && bps === 350
+          && fixed === 35 && aiM === 2900 && inc === 1500 && overM === 1500 && over === 1500) {
+        return; // identical to the shipped fallback — nothing to swap
+      }
       var money = function (cents) {
         var d = cents / 100;
         return '$' + (cents % 100 === 0 ? d.toFixed(0) : d.toFixed(2));
       };
       var fee = function (units) { return money(Math.max(floor, unit * units)); }; // the one formula shape
+      var pct = function (b) { return String(b / 100); }; // 350 → "3.5", 400 → "4"
+      var num = function (n) { return n.toLocaleString('en-US'); }; // 1500 → "1,500" (site style, both languages)
+      // Two-pass token swap: every shipped literal becomes a placeholder FIRST,
+      // then placeholders become live values — so a substituted value can never
+      // be re-matched by a later token (e.g. a $2 floor vs the $2 bank fee).
+      // Order matters only within pass 1: compound tokens before their parts.
+      var SWAPS = [
+        ['$15 per additional 1,500', money(over) + ' per additional ' + num(overM)], // AI overage (EN)
+        ['$15 por cada 1,500', money(over) + ' por cada ' + num(overM)],             // AI overage (ES)
+        ['$0.35', money(fixed)],          // card fee, fixed part
+        ['3.5%', pct(bps) + '%'],         // card fee, percent part
+        ['$1.50', money(unit)],           // the per-unit rate
+        ['$60', fee(40)],                 // the 40-unit worked example
+        ['$150', fee(100)],               // the 100-unit worked example
+        ['$29', money(aiM)],              // AI Agent monthly (per building)
+        [/\$25\b/g, money(floor)],        // the monthly minimum
+        [/\$9\b/g, money(payM)],          // Payments monthly (per building)
+        [/\$2\b/g, money(bank)],          // the flat bank-payment fee
+        ['1,500', num(inc)],              // AI included messages (per building)
+      ];
       var patch = function (s) {
         if (s == null) return s;
-        return s
-          .split('$1.50').join(money(unit))   // the per-unit rate
-          .split('$60').join(fee(40))         // the 40-unit worked example
-          .split('$150').join(fee(100))       // the 100-unit worked example
-          .replace(/\$25\b/g, money(floor)); // the monthly minimum (never touches $2/$29/$0.35)
+        SWAPS.forEach(function (sw, i) {
+          var ph = '\u0000' + i + '\u0000'; // NUL-delimited - cannot occur in page text
+          s = typeof sw[0] === 'string' ? s.split(sw[0]).join(ph) : s.replace(sw[0], ph);
+        });
+        SWAPS.forEach(function (sw, i) {
+          s = s.split('\u0000' + i + '\u0000').join(sw[1]);
+        });
+        return s;
       };
       PRICE_KEYS.forEach(function (k) {
         if (EN[k] != null) EN[k] = patch(EN[k]);
