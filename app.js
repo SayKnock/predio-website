@@ -143,6 +143,63 @@
     });
   }
 
+
+  // ── THE ONE DIAL (Core §8): the pricing page reads the LIVE standard price ──
+  // plan_catalog's 'standard' row — edited in Predio HQ → Catalogs — is the one
+  // source of truth for the price; the app's onboarding and HQ read the same
+  // row. standard_pricing() is a public, read-only RPC built for this page (the
+  // anon key is public by design — the same key every Predio client ships).
+  // PROGRESSIVE ENHANCEMENT: the hardcoded $1.50 / $25 in the HTML is the
+  // no-JS / fetch-failed fallback. This block only ever swaps numbers after a
+  // good response — it can never blank the page, spin, or render NaN. It also
+  // recomputes the FAQ worked examples (40 / 100 units) from the fetched rate,
+  // and patches the EN + ES dictionaries so the language toggle keeps the live
+  // price.
+  var PRICE_KEYS = ['one_price', 'one_min', 'price_foot', 'pa1'];
+  if (window.fetch && PRICE_KEYS.some(function (k) { return EN[k] != null; })) {
+    var SB_URL = 'https://knewthjceydrqfaknczw.supabase.co';
+    var SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtuZXd0aGpjZXlkcnFmYWtuY3p3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0NDE3OTcsImV4cCI6MjA5ODAxNzc5N30.3ev95BbpBXB5iBRhgjQe110_q5LMLBOE36cvaqaPv50';
+    var ctrl = 'AbortController' in window ? new AbortController() : null;
+    var tmr = ctrl ? setTimeout(function () { ctrl.abort(); }, 5000) : null;
+    fetch(SB_URL + '/rest/v1/rpc/standard_pricing', {
+      method: 'POST',
+      headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON, 'Content-Type': 'application/json' },
+      body: '{}',
+      signal: ctrl ? ctrl.signal : undefined,
+    }).then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
+      if (tmr) clearTimeout(tmr);
+      if (!p) return;
+      var unit = p.unit_cents, floor = p.floor_cents;
+      if (typeof unit !== 'number' || typeof floor !== 'number'
+          || !isFinite(unit) || !isFinite(floor) || unit <= 0 || floor <= 0) return;
+      if (unit === 150 && floor === 2500) return; // identical to the shipped fallback
+      var money = function (cents) {
+        var d = cents / 100;
+        return '$' + (cents % 100 === 0 ? d.toFixed(0) : d.toFixed(2));
+      };
+      var fee = function (units) { return money(Math.max(floor, unit * units)); }; // the one formula shape
+      var patch = function (s) {
+        if (s == null) return s;
+        return s
+          .split('$1.50').join(money(unit))   // the per-unit rate
+          .split('$60').join(fee(40))         // the 40-unit worked example
+          .split('$150').join(fee(100))       // the 100-unit worked example
+          .replace(/\$25\b/g, money(floor)); // the monthly minimum (never touches $2/$29/$0.35)
+      };
+      PRICE_KEYS.forEach(function (k) {
+        if (EN[k] != null) EN[k] = patch(EN[k]);
+        if (ES[k] != null) ES[k] = patch(ES[k]);
+      });
+      var lang = document.documentElement.lang === 'es' ? 'es' : 'en';
+      nodes.forEach(function (n) {
+        var k = n.getAttribute('data-i18n');
+        if (PRICE_KEYS.indexOf(k) > -1) {
+          n.innerHTML = lang === 'es' ? (ES[k] != null ? ES[k] : EN[k]) : EN[k];
+        }
+      });
+    }).catch(function () { /* the static fallback stands */ });
+  }
+
   // year
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();

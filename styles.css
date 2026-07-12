@@ -167,6 +167,15 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 
 /* pricing */
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;align-items:stretch}
+/* one-plan pricing (Core §8 — no tiers) */
+.price-solo{max-width:760px;margin:48px auto 0}
+.price-solo .tier{padding:38px 40px}
+.price-solo .price-slot{justify-content:center;text-align:center}
+.price-solo h3,.price-solo .tier-for,.price-solo .tier-min,.price-solo .tier-seats{text-align:center}
+.price-solo .amt{font-size:52px}
+.solo-feats{columns:2;column-gap:34px;margin-top:22px}
+.solo-feats li{break-inside:avoid;-webkit-column-break-inside:avoid}
+@media(max-width:640px){.price-solo .tier{padding:30px 22px}.solo-feats{columns:1}.price-solo .amt{font-size:44px}}
 .tier{background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;transition:.2s}
 .tier:hover{box-shadow:0 20px 46px -28px rgba(15,76,92,.4);transform:translateY(-3px)}
 .tier.popular{border:2px solid var(--green);box-shadow:0 26px 56px -34px rgba(42,157,143,.7);position:relative}
@@ -253,7 +262,7 @@ footer{background:var(--teal);color:#cfe3e3;padding:60px 0 28px}
   .hero-grid,.split,.foot-grid,.frow,.frow.flip .ftxt{grid-template-columns:1fr;order:0}
   .vp-grid,.feat-grid,.steps,.diff-grid,.aud-grid,.price-grid{grid-template-columns:1fr 1fr}
   /* a 2-col grid with an ODD card count would leave an orphan card next to a
-     hole (e.g. the Premium tier) — let the last card span the full row instead */
+     hole — let the last card span the full row instead */
   .vp-grid>:last-child:nth-child(odd),.feat-grid>:last-child:nth-child(odd),
   .steps>:last-child:nth-child(odd),.diff-grid>:last-child:nth-child(odd),
   .aud-grid>:last-child:nth-child(odd),.price-grid>:last-child:nth-child(odd){grid-column:1/-1}
