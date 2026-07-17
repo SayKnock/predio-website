@@ -9,7 +9,7 @@ h1,h2,h3,h4,.brandfont{font-family:'Poppins','Inter',sans-serif;letter-spacing:-
 p,li,.tier-for,.badge,.hero-note,.check,.mini .row{text-wrap:pretty}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
-.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.container{max-width:1240px;margin:0 auto;padding:0 24px}
 .narrow{max-width:840px;margin:0 auto;padding:0 24px}
 .kicker{color:var(--green);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
 section{padding:80px 0}
@@ -54,12 +54,14 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 /* narrow: the pill folds into the drawer — the logo stays centered at all widths */
 @media(max-width:720px){.lang-bar{display:none}}
 
-/* HERO (home) */
-.hero{position:relative;overflow:hidden;background:
+/* HERO (home) — full-bleed soft gradient band; wide 2-col with a bigger,
+   floating dashboard visual on the right. */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:
   radial-gradient(1200px 600px at 80% -10%,rgba(42,157,143,.16),transparent 60%),
-  radial-gradient(900px 500px at 0% 10%,rgba(27,107,122,.12),transparent 55%);
-  padding:84px 0 60px}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  radial-gradient(900px 500px at 0% 10%,rgba(27,107,122,.12),transparent 55%),
+  linear-gradient(180deg,#f4faf8 0%,#ffffff 76%);
+  padding:92px 0 84px}
+.hero-grid{display:grid;grid-template-columns:1.02fr 1.12fr;gap:56px;align-items:center}
 .hero h1{font-size:52px;font-weight:800;color:var(--teal)}
 .hero p.sub{font-size:19px;color:var(--muted);margin:22px 0 28px;max-width:560px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
@@ -101,6 +103,9 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 .vp-ic svg{width:26px;height:26px;stroke:#fff}
 .vp-card h3{font-size:20px;color:var(--teal);margin-bottom:8px}
 .vp-card p{color:var(--muted);font-size:15px}
+/* value-prop cards that link out (the home "three pillars" teaser → Features) */
+.vp-card.link{display:block}
+.vp-card .arrow{color:var(--green);font-weight:700;font-size:14px;margin-top:16px;display:inline-block}
 
 /* section heads */
 .section-head{text-align:center;max-width:700px;margin:0 auto 12px}
@@ -239,10 +244,10 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 /* pricing teaser heading (home) */
 .teaser-h2{font-size:34px;color:var(--teal)}
 
-/* final cta */
-.final{background:var(--soft);text-align:center}
-.final h2{font-size:38px;color:var(--teal)}
-.final p{color:var(--muted);font-size:18px;margin:16px 0 28px}
+/* final cta — full-bleed teal band */
+.final{background:linear-gradient(120deg,var(--teal) 0%,#0e3a44 100%);text-align:center}
+.final h2{font-size:38px;color:#fff}
+.final p{color:#bfe0db;font-size:18px;margin:16px 0 28px}
 
 /* footer */
 footer{background:var(--teal);color:#cfe3e3;padding:60px 0 28px}
