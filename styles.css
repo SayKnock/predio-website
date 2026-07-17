@@ -22,16 +22,21 @@ section{padding:80px 0}
 .btn-light:hover{transform:translateY(-1px)}
 .center{text-align:center}
 
-/* NAV — on wide screens the logo is centered in the bar with the EN/ES pill +
-   hamburger together on the right; below the breakpoint the logo returns to the
-   left and the pill folds into the hamburger dropdown (links, Sign in, CTA). */
-header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+/* NAV — logo left, inline links, right actions (EN/ES pill · Sign in · CTA).
+   Below the breakpoint the links + actions fold into the hamburger drawer. */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 header.nav.nav-open{background:#fff}
-.nav-inner{display:flex;align-items:center;justify-content:flex-end;height:70px;position:relative}
-.logo{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:700;font-size:22px;color:var(--teal)}
-.logo svg{width:34px;height:34px}
-.nav-actions{display:flex;align-items:center;gap:12px}
-.menu-btn{display:flex;align-items:center;justify-content:center;width:46px;height:46px;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:22px;line-height:1;color:var(--teal);transition:.2s}
+.nav-inner{display:flex;align-items:center;gap:22px;height:70px}
+.logo{display:flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:700;font-size:22px;color:var(--teal);flex:0 0 auto}
+.logo svg{width:32px;height:32px}
+.nav-desktop{display:flex;align-items:center;gap:26px;margin-left:6px;font-size:15px;font-weight:500}
+.nav-desktop a{color:#3a4c54;white-space:nowrap;transition:color .15s}
+.nav-desktop a:hover,.nav-desktop a.active{color:var(--teal)}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-signin{font-size:15px;font-weight:600;color:var(--teal);white-space:nowrap}
+.nav-signin:hover{color:#0c3e4b}
+.nav-cta{white-space:nowrap;padding:11px 20px;font-size:14.5px}
+.menu-btn{display:none;align-items:center;justify-content:center;width:46px;height:46px;background:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:22px;line-height:1;color:var(--teal);transition:.2s}
 .menu-btn:hover{border-color:var(--teal2);background:var(--soft)}
 .lang{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;position:relative;cursor:pointer;user-select:none}
 .lang span{position:relative;z-index:2;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px;color:var(--muted);transition:color .25s}
@@ -39,7 +44,7 @@ header.nav.nav-open{background:#fff}
 .lang .slider{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);background:var(--green);border-radius:999px;transition:transform .25s cubic-bezier(.4,0,.2,1)}
 .lang.es .slider{transform:translateX(100%)}
 
-/* dropdown panel — same at every width */
+/* dropdown panel (mobile) */
 .nav-drawer{display:none}
 header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute;top:calc(100% + 10px);right:0;width:min(300px,calc(100vw - 32px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 60px -28px rgba(15,76,92,.45);padding:12px;z-index:60}
 .nav-drawer .nav-links{display:flex;flex-direction:column;gap:2px}
@@ -49,10 +54,14 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 .nav-drawer .lang{align-self:center;margin:12px 0 8px}
 .nav-drawer .lang span{padding:6px 15px;font-size:14px}
 .nav-drawer .btn-primary{display:flex;justify-content:center;margin:2px 4px 4px;padding:13px 22px}
-/* wide: the EN/ES pill lives in the bar, so hide the drawer's copy */
-@media(min-width:721px){.nav-drawer .lang{display:none}}
-/* narrow: the pill folds into the drawer — the logo stays centered at all widths */
-@media(max-width:720px){.lang-bar{display:none}}
+/* wide: inline nav shows, drawer's own pill hidden */
+@media(min-width:1101px){.nav-drawer .lang{display:none}}
+/* narrow: fold the inline links + bar actions into the hamburger */
+@media(max-width:1100px){
+  .nav-desktop{display:none}
+  .nav-actions .nav-signin,.nav-actions .nav-cta,.nav-actions .lang-bar{display:none}
+  .menu-btn{display:flex}
+}
 
 /* HERO (home) — full-bleed soft gradient band; wide 2-col with a bigger,
    floating dashboard visual on the right. */
