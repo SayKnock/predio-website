@@ -242,6 +242,11 @@ header.nav-open .nav-drawer{display:flex;flex-direction:column;position:absolute
 .prose ul{margin:14px 0 14px 20px;color:var(--muted)}
 .prose li{margin:8px 0}
 
+/* legal / instruction pages (terms, privacy, delete-account) — the page gets
+   the full-bleed .page-hero band + nav/footer, but the long body stays in a
+   readable ~820px column instead of stretching to the wide 1240px content. */
+.legal .container{max-width:820px}
+
 /* pricing teaser heading (home) */
 .teaser-h2{font-size:34px;color:var(--teal)}
 
